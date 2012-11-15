@@ -1,0 +1,10 @@
+name: FenceLamps
+main: pl.kitor.FenceLamps.FenceLamps
+version: 0.2
+commands:
+  fencelamps:
+    description: FenceLamps control
+    usage: /fencelamps reload
+    permission: fencelamps.reload
+    permission-message: You don't have permission to do this.
+    
