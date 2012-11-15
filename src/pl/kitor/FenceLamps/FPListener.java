@@ -24,7 +24,7 @@ public class FPListener implements Listener {
     // 
     @EventHandler(priority = EventPriority.NORMAL)
     public void blockLogin(BlockBreakEvent event) {
-    if (event.isCancelled()) {
+        if (event.isCancelled()) {
             return;
         }
         Block block = event.getBlock();
