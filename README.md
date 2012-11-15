@@ -1,0 +1,4 @@
+FenceLamps
+==========
+
+Bukkit FenceLamps plugin
