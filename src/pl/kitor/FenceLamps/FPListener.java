@@ -24,12 +24,13 @@ public class FPListener implements Listener {
     // 
     @EventHandler(priority = EventPriority.NORMAL)
     public void blockLogin(BlockBreakEvent event) {
-    if (event.isCancelled()) {
+        if (event.isCancelled()) {
             return;
         }
         Block block = event.getBlock();
-        if ((block.getTypeId() == LAMP_ON) && (block.getData() == LAMP_DATA)) {
-            block.setTypeId(0); // air
+        if ((block.getTypeId() == LAMP_ON) && (block.getData() == LAMP_DATA)
+                && (block.getRelative(0, -1, 0).getTypeId() == FENCE)) {             //block under is not fence = something's not right,
+            block.setTypeId(0); // air                                          //so leave it alone
             event.setCancelled(true);
         }
     }
@@ -65,8 +66,8 @@ public class FPListener implements Listener {
 
             int lampId = lamp.getTypeId();
             if ((lampId == LAMP_OFF) || (lampId == LAMP_ON)) {
-                if (((state == true) && (lampId == LAMP_ON)) ||
-                    ((state == false) && (lampId == LAMP_OFF))) {
+                if (((state == true) && (lampId == LAMP_ON))
+                        || ((state == false) && (lampId == LAMP_OFF))) {
                     return;                                                     //if states are equal - do nothing
                 }
                 if ((lampId == LAMP_ON) && (lamp.getData() != LAMP_DATA)) {
