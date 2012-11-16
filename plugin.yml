@@ -1,0 +1,7 @@
+name: FencePower
+main: pl.kitor.FencePower
+version: 0.1
+commands:
+  fencepower:
+    description: Test
+    usage: /fencepower
