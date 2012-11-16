@@ -29,7 +29,7 @@ public class FPListener implements Listener {
         }
         Block block = event.getBlock();
         if ((block.getTypeId() == LAMP_ON) && (block.getData() == LAMP_DATA)
-                && (block.getRelative(0, -1, 0).getTypeId() == FENCE)) {             //block under is not fence = something's not right,
+                && (block.getRelative(0, -1, 0).getTypeId() == FENCE)) {        //block under is not fence = something's not right,
             block.setTypeId(0); // air                                          //so leave it alone
             event.setCancelled(true);
         }
