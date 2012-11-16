@@ -1,4 +1,4 @@
 FenceLamps
 ==========
 
-Bukkit FenceLamps plugin
+Bukkit FenceLamps plugin :)
