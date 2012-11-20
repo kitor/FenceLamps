@@ -1,6 +1,6 @@
 # default config.yml
 #maximum vertical current length
-MAX_V: 7
+MAX_V: 5
 #0 - normal fence; 1 - netherbrick fence
 FENCE_TYPE: 0
 LAMP_ON: 124

@@ -1,54 +1,57 @@
 package pl.kitor.FenceLamps;
 
+import org.bukkit.Material;
+import org.bukkit.World;
 import org.bukkit.block.Block;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockPhysicsEvent;
+import org.bukkit.event.block.BlockRedstoneEvent;
+import org.bukkit.inventory.ItemStack;
 
 public class FPListener implements Listener {
 
     private static final int TORCH_ON = 76;
-    int FENCE = 85;
-    int LAMP_OFF = 20;                                                          //20 - glass
-    int LAMP_ON = 89;                                                           //89 - glowstone
-    int REDLAMP_OFF = 123;
-    int REDLAMP_ON = 124;
-    byte LAMP_DATA = 12;                                                        //data value for our block
-    int MAX_V = 7;                                                              //maximum height that current goes
+    private static final int REDLAMP_ON = 124;
+    int FENCE;
+    int LAMP_OFF;                                                               //20 - glass
+    int LAMP_ON;                                                                //89 - glowstone
+    byte LAMP_DATA;                                                             //data value for our block
+    int MAX_V;                                                                  //maximum height that current goes
 
     @SuppressWarnings("LeakingThisInConstructor")
     public FPListener(FenceLamps plugin) {
         plugin.getServer().getPluginManager().registerEvents(this, plugin);
     }
 
-    // 
     @EventHandler(priority = EventPriority.NORMAL)
-    public void blockLogin(BlockBreakEvent event) {
+    public void doNotStole(BlockBreakEvent event) {
         if (event.isCancelled()) {
             return;
         }
         Block block = event.getBlock();
-        if ((block.getTypeId() == LAMP_ON) && (block.getData() == LAMP_DATA)
-                && (block.getRelative(0, -1, 0).getTypeId() == FENCE)) {        //block under is not fence = something's not right,
-            block.setTypeId(0); // air                                          //so leave it alone
+        if (block.getTypeId() == LAMP_ON
+                && block.getData() == LAMP_DATA) {
+            System.out.println("DropEvent");
+            block.setTypeId(0);
+            ItemStack drop = new ItemStack(LAMP_OFF, 1);
+            World world = block.getWorld();
+            world.dropItemNaturally(block.getLocation(), drop);
             event.setCancelled(true);
         }
     }
 
     @EventHandler(priority = EventPriority.NORMAL)
-    public void redLampFix(BlockPhysicsEvent event) {
-        if (event.isCancelled()) {
-            return;
-        }
+    public void redLampFix(BlockRedstoneEvent event) {
         Block block = event.getBlock();
-        if (!((block.getTypeId() == REDLAMP_ON)
-                && (block.getData() == LAMP_DATA)
-                && (block.getRelative(0, -1, 0).getTypeId() == FENCE))) {
-            return;
+        if (LAMP_ON == REDLAMP_ON //fire only if needed
+                && block.getTypeId() == REDLAMP_ON
+                && block.getData() == LAMP_DATA
+                && block.getRelative(0, -1, 0).getTypeId() == FENCE) {
+            event.setNewCurrent(5);                                             //set 'lost' currrent
         }
-        event.setCancelled(true);
     }
 
     @EventHandler(priority = EventPriority.NORMAL)
@@ -91,7 +94,6 @@ public class FPListener implements Listener {
                 }
                 lamp.setTypeId(state == true ? LAMP_ON : LAMP_OFF);
                 lamp.setData(LAMP_DATA);
-
             }
         }
     }
