@@ -1,6 +1,5 @@
 package pl.kitor.FenceLamps;
 
-import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.block.Block;
 import org.bukkit.event.EventHandler;
@@ -34,7 +33,6 @@ public class FPListener implements Listener {
         Block block = event.getBlock();
         if (block.getTypeId() == LAMP_ON
                 && block.getData() == LAMP_DATA) {
-            System.out.println("DropEvent");
             block.setTypeId(0);
             ItemStack drop = new ItemStack(LAMP_OFF, 1);
             World world = block.getWorld();
