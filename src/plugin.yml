@@ -1,6 +1,6 @@
 name: FenceLamps
 main: pl.kitor.FenceLamps.FenceLamps
-version: 0.26
+version: 0.27
 commands:
   fencelamps:
     description: FenceLamps control

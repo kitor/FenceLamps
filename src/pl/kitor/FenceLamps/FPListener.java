@@ -13,6 +13,8 @@ public class FPListener implements Listener {
     int FENCE = 85;
     int LAMP_OFF = 20;                                                          //20 - glass
     int LAMP_ON = 89;                                                           //89 - glowstone
+    int REDLAMP_OFF = 123;
+    int REDLAMP_ON = 124;
     byte LAMP_DATA = 12;                                                        //data value for our block
     int MAX_V = 7;                                                              //maximum height that current goes
 
@@ -33,6 +35,20 @@ public class FPListener implements Listener {
             block.setTypeId(0); // air                                          //so leave it alone
             event.setCancelled(true);
         }
+    }
+
+    @EventHandler(priority = EventPriority.NORMAL)
+    public void redLampFix(BlockPhysicsEvent event) {
+        if (event.isCancelled()) {
+            return;
+        }
+        Block block = event.getBlock();
+        if (!((block.getTypeId() == REDLAMP_ON)
+                && (block.getData() == LAMP_DATA)
+                && (block.getRelative(0, -1, 0).getTypeId() == FENCE))) {
+            return;
+        }
+        event.setCancelled(true);
     }
 
     @EventHandler(priority = EventPriority.NORMAL)

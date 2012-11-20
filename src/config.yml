@@ -3,7 +3,7 @@
 MAX_V: 7
 #0 - normal fence; 1 - netherbrick fence
 FENCE_TYPE: 0
-LAMP_ON: 89
-LAMP_OFF: 20
+LAMP_ON: 124
+LAMP_OFF: 123
 #try to change this if you have problems
 LAMP_DATA: 12
